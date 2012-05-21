@@ -14,10 +14,15 @@ from urllib import urlretrieve
 from html2text import html2text_file
 
 '''
+Original version:
 exitwp - Wordpress xml exports to Jekykll blog format conversion
 
 Tested with Wordpress 3.3.1 and jekyll 0.11.2
 
+New version:
+exitwp - Wordpress xml exports to ikiwiki blog format conversion
+
+Tested with Wordpress 3.3.2 and ikiwiki ikiwiki version 3.20100815.9
 '''
 ######################################################
 # Configration
@@ -173,8 +178,8 @@ def write_jekyll(data, target_format):
             uid = []
             if (date_prefix):
                 dt = datetime.strptime(item['date'], date_fmt)
-                uid.append(dt.strftime('%Y-%m-%d'))
-                uid.append('-')
+        #        uid.append(dt.strftime('%Y-%m-%d'))
+        #        uid.append('-')
             s_title = item['slug']
             if s_title is None or s_title == '':
                 s_title = item['title']
@@ -201,7 +206,7 @@ def write_jekyll(data, target_format):
                 os.makedirs(''.join(filename_parts))
             filename_parts.append('/index')
         filename_parts.append('.')
-        filename_parts.append(target_format)
+        filename_parts.append('mdwn')
         return ''.join(filename_parts)
 
     def get_attachment_path(src, dir, dir_prefix='a'):
@@ -303,13 +308,13 @@ def write_jekyll(data, target_format):
                         continue
                     tax_out[t_name].append(tvalue)
 
-            out.write('---\n')
-            if len(yaml_header) > 0:
-                out.write(toyaml(yaml_header))
-            if len(tax_out) > 0:
-                out.write(toyaml(tax_out))
+#            out.write('---\n')
+#            if len(yaml_header) > 0:
+#                out.write(toyaml(yaml_header))
+#            if len(tax_out) > 0:
+#                out.write(toyaml(tax_out))
 
-            out.write('---\n\n')
+#            out.write('---\n\n')
             try:
                 out.write(html2fmt(i['body'], target_format))
             except:
